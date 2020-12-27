@@ -1,5 +1,5 @@
 // DEPENDENCIES
-const inquirer = require('inquirer');
+const inquirer = require("inquirer");
 const mysql = require("mysql");
 const cTable = require("console.table");
 
@@ -14,7 +14,7 @@ const connection = mysql.createConnection({
     user: "root",
 
     // Your password
-    password: "",
+    password: "chijthoj",
     database: "employee_tracker_db"
 });
 
@@ -48,7 +48,17 @@ function start() {
                     ]
         })
         .then(function (answer) {
-            console.log("this is working")
-            connection.end();
+            if (answer.startUp === "Add employee") {
+                addEmployee();
+                connection.end();
+            } else {
+                console.log("not this one");
+                connection.end();
+            }
+            
         });
 };
+
+function addEmployee() {
+    console.log("Adding Employee");
+}
