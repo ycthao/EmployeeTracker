@@ -23,6 +23,7 @@ CREATE TABLE role_tbl (
   role_id int NOT NULL AUTO_INCREMENT,
   title VARCHAR(30) NOT NULL,
   salary DECIMAL(10, 2) NOT NULL,
+  department_id INT,
   PRIMARY KEY (role_id)
 );
 
