@@ -20,11 +20,17 @@ CREATE TABLE employee (
 
 -- Create the table role_tbl.
 CREATE TABLE role_tbl (
-  role_id int NOT NULL AUTO_INCREMENT,
+  role_id INT NOT NULL AUTO_INCREMENT,
   title VARCHAR(30) NOT NULL,
   salary DECIMAL(10, 2) NOT NULL,
   department_id INT,
   PRIMARY KEY (role_id)
 );
 
+-- Create the table department_tbl.
+CREATE TABLE department_tbl (
+  department_id INT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(30) NOT NULL,
+  PRIMARY KEY (department_id)
+);
 
