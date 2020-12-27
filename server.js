@@ -24,3 +24,30 @@ connection.connect(function (err) {
     // run the start function after the connection is made to prompt the user
     start();
 });
+
+// function which prompts the user for what action they should take
+function start() {
+    inquirer
+        .prompt({
+            name: "startUp",
+            type: "list",
+            message: "What would you like to do?",
+            choices: [  "Add employee",
+                        "Add department",
+                        "Add role",
+                        "Delete employee",
+                        "Delete department",
+                        "Delete role",
+                        "Update employee role",
+                        "Update employee's manager",
+                        "View all employees",
+                        "View all departments", 
+                        "View all roles",
+                        "View employees by manager",
+                        "View total utilized budget of a department"
+                    ]
+        })
+        .then(function (answer) {
+            console.log("this is working")
+        });
+};
