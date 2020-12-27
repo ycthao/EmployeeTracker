@@ -18,12 +18,12 @@ CREATE TABLE employee (
   PRIMARY KEY (id)
 );
 
--- Create the table role.
-CREATE TABLE role (
-  department int NOT NULL AUTO_INCREMENT,
+-- Create the table role_tbl.
+CREATE TABLE role_tbl (
+  role_id int NOT NULL AUTO_INCREMENT,
   title VARCHAR(30) NOT NULL,
-  salary DECIMAL NOT NULL,
-  PRIMARY KEY (department)
+  salary DECIMAL(10, 2) NOT NULL,
+  PRIMARY KEY (role_id)
 );
 
 
