@@ -49,5 +49,6 @@ function start() {
         })
         .then(function (answer) {
             console.log("this is working")
+            connection.end();
         });
 };
