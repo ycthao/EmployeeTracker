@@ -64,7 +64,7 @@ function start() {
                     addDepartment();
                     break;
                 case "Add role":
-
+                    addRole()
                     break;
                 case "Delete employee":
 
@@ -118,7 +118,12 @@ function addDepartment() {
     connection.end();
 }
 
-// "Add role",
+// "Add role"
+function addRole() {
+    console.log("Adding role");
+    connection.end();
+}
+
 // "Delete employee",
 // "Delete department",
 // "Delete role",
