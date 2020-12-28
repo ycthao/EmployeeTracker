@@ -45,7 +45,8 @@ function start() {
                 "View all departments",
                 "View all roles",
                 "View employees by manager",
-                "View total utilized budget of a department"
+                "View total utilized budget of a department",
+                "Exit"
             ]
         })
         .then(function (answer) {
@@ -97,6 +98,9 @@ function start() {
                 case "View total utilized budget of a department":
                     viewTotalBudgetByDept();
                     break;
+                case "Exit":
+                    console.log("Exit program succesful");
+                    connection.end();
             }
 
 
