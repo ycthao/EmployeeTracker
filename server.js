@@ -14,7 +14,7 @@ const connection = mysql.createConnection({
     user: "root",
 
     // Your password
-    password: "chijthoj",
+    password: "",
     database: "employee_tracker_db"
 });
 
@@ -91,7 +91,7 @@ function start() {
                     viewAllRole();
                     break;
                 case "Update employee's manager":
-
+                    viewEmployeeByManager();
                     break;
                 case "View employees by manager":
 
@@ -164,5 +164,9 @@ function viewAllRole() {
     console.log("View all role");
     connection.end();
 
-// "View employees by manager",
+// View employees by manager
+function viewEmployeeByManager() {
+    console.log("View Employee by manager");
+    connection.end();
+
 // "View total utilized budget of a department"
