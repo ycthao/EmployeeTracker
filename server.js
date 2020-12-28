@@ -79,7 +79,7 @@ function start() {
                     updateEmployee();
                     break;
                 case "Update employee's manager":
-
+                    updateEmployeeManager();
                     break;
                 case "View all employees":
 
@@ -144,7 +144,11 @@ function updateEmployee() {
     console.log("Updating employee");
     connection.end();
 
-// "Update employee's manager",
+// Update employee's manager
+function updateEmployeeManager() {
+    console.log("Updating employee's manager");
+    connection.end();
+
 // "View all employees",
 // "View all departments",
 // "View all roles",
