@@ -48,17 +48,25 @@ function start() {
                     ]
         })
         .then(function (answer) {
-            if (answer.startUp === "Add employee") {
-                addEmployee();
-                connection.end();
-            } else {
-                console.log("not this one");
-                connection.end();
+            // if (answer.startUp === "Add employee") {
+            //     addEmployee();
+            //     connection.end();
+            // } else {
+            //     console.log("not this one");
+            //     connection.end();
+            // }
+            
+            switch (answer.startUp) {
+                case "Add employee":
+                    addEmployee();
+                    break;
             }
             
+
         });
 };
 
 function addEmployee() {
     console.log("Adding Employee");
+    connection.end();
 }
