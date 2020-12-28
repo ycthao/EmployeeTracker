@@ -101,13 +101,26 @@ function start() {
                     break;
             }
 
-                
+
 
         });
 };
 
-
+// Add employee function
 function addEmployee() {
     console.log("Adding Employee");
     connection.end();
 }
+
+// "Add department",
+// "Add role",
+// "Delete employee",
+// "Delete department",
+// "Delete role",
+// "Update employee role",
+// "Update employee's manager",
+// "View all employees",
+// "View all departments",
+// "View all roles",
+// "View employees by manager",
+// "View total utilized budget of a department"
