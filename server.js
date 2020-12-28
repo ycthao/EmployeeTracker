@@ -32,20 +32,20 @@ function start() {
             name: "startUp",
             type: "list",
             message: "What would you like to do?",
-            choices: [  "Add employee",
-                        "Add department",
-                        "Add role",
-                        "Delete employee",
-                        "Delete department",
-                        "Delete role",
-                        "Update employee role",
-                        "Update employee's manager",
-                        "View all employees",
-                        "View all departments", 
-                        "View all roles",
-                        "View employees by manager",
-                        "View total utilized budget of a department"
-                    ]
+            choices: ["Add employee",
+                "Add department",
+                "Add role",
+                "Delete employee",
+                "Delete department",
+                "Delete role",
+                "Update employee role",
+                "Update employee's manager",
+                "View all employees",
+                "View all departments",
+                "View all roles",
+                "View employees by manager",
+                "View total utilized budget of a department"
+            ]
         })
         .then(function (answer) {
             // if (answer.startUp === "Add employee") {
@@ -55,16 +55,57 @@ function start() {
             //     console.log("not this one");
             //     connection.end();
             // }
-            
+
             switch (answer.startUp) {
                 case "Add employee":
                     addEmployee();
                     break;
+                case "Add department":
+
+                    break;
+                case "Add role":
+
+                    break;
+                case "Delete employee":
+
+                    break;
+                case "Delete department":
+
+                    break;
+                case "Delete role":
+
+                    break;
+                case "Update employee role":
+
+                    break;
+                case "Update employee's manager":
+
+                    break;
+                case "View all employees":
+
+                    break;
+                case "View all departments":
+
+                    break;
+                case "View all roles":
+
+                    break;
+                case "Update employee's manager":
+
+                    break;
+                case "View employees by manager":
+
+                    break;
+                case "View total utilized budget of a department":
+
+                    break;
             }
-            
+
+                
 
         });
 };
+
 
 function addEmployee() {
     console.log("Adding Employee");
