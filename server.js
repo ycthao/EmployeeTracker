@@ -93,11 +93,8 @@ function start() {
                 case "Update employee's manager":
                     viewEmployeeByManager();
                     break;
-                case "View employees by manager":
-
-                    break;
                 case "View total utilized budget of a department":
-
+                    viewTotalBudgetByDept();
                     break;
             }
 
@@ -169,4 +166,7 @@ function viewEmployeeByManager() {
     console.log("View Employee by manager");
     connection.end();
 
-// "View total utilized budget of a department"
+// View total utilized budget of a department
+function viewTotalBudgetByDept() {
+    console.log("View total utilized budget of a department");
+    connection.end();
