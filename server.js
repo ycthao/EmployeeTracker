@@ -76,7 +76,7 @@ function start() {
                     deleteRole();
                     break;
                 case "Update employee role":
-
+                    updateEmployee();
                     break;
                 case "Update employee's manager":
 
@@ -139,7 +139,11 @@ function deleteRole() {
     console.log("Deleting role");
     connection.end();
 
-// "Update employee role",
+// Update employee role
+function updateEmployee() {
+    console.log("Updating employee");
+    connection.end();
+
 // "Update employee's manager",
 // "View all employees",
 // "View all departments",
