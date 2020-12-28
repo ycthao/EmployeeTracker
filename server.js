@@ -88,7 +88,7 @@ function start() {
                     viewAllDepartments();
                     break;
                 case "View all roles":
-
+                    viewAllRole();
                     break;
                 case "Update employee's manager":
 
@@ -159,6 +159,10 @@ function viewAllDepartments() {
     console.log("View all departments");
     connection.end();
 
-// "View all roles",
+// View all roles
+function viewAllRole() {
+    console.log("View all role");
+    connection.end();
+
 // "View employees by manager",
 // "View total utilized budget of a department"
