@@ -64,13 +64,13 @@ function start() {
                     addDepartment();
                     break;
                 case "Add role":
-                    addRole()
+                    addRole();
                     break;
                 case "Delete employee":
-                    deleteEmployee()
+                    deleteEmployee();
                     break;
                 case "Delete department":
-
+                    deleteDepartment();
                     break;
                 case "Delete role":
 
@@ -112,24 +112,28 @@ function addEmployee() {
     connection.end();
 }
 
-// "Add department"
+// Add department function
 function addDepartment() {
     console.log("Adding department");
     connection.end();
 }
 
-// "Add role"
+// Add role function
 function addRole() {
     console.log("Adding role");
     connection.end();
 }
 
-// "Delete employee"
+// Delete employee function
 function deleteEmployee() {
     console.log("Deleting employee");
     connection.end();
 
-// "Delete department",
+// Delete department function
+function deleteDepartment() {
+    console.log("Deleting department");
+    connection.end();
+
 // "Delete role",
 // "Update employee role",
 // "Update employee's manager",
