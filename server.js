@@ -32,7 +32,8 @@ function start() {
             name: "startUp",
             type: "list",
             message: "What would you like to do?",
-            choices: ["Add employee",
+            choices: [
+                "Add employee",
                 "Add department",
                 "Add role",
                 "Delete employee",
@@ -90,7 +91,7 @@ function start() {
                 case "View all roles":
                     viewAllRole();
                     break;
-                case "Update employee's manager":
+                case "View employees by manager":
                     viewEmployeeByManager();
                     break;
                 case "View total utilized budget of a department":
