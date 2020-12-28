@@ -107,66 +107,76 @@ function start() {
 function addEmployee() {
     console.log("Adding Employee");
     connection.end();
-}
+};
 
 // Add department function
 function addDepartment() {
     console.log("Adding department");
     connection.end();
-}
+};
 
 // Add role function
 function addRole() {
     console.log("Adding role");
     connection.end();
-}
+};
 
 // Delete employee function
 function deleteEmployee() {
     console.log("Deleting employee");
     connection.end();
+};
 
 // Delete department function
 function deleteDepartment() {
     console.log("Deleting department");
     connection.end();
+};
 
 // Delete role
 function deleteRole() {
     console.log("Deleting role");
     connection.end();
+};
 
 // Update employee role
 function updateEmployee() {
     console.log("Updating employee");
     connection.end();
+};
 
 // Update employee's manager
 function updateEmployeeManager() {
     console.log("Updating employee's manager");
     connection.end();
+};
 
 // View all employees
 function viewAllEmployees() {
     console.log("View all employees");
     connection.end();
+};
 
 // View all departments
 function viewAllDepartments() {
     console.log("View all departments");
     connection.end();
+};
 
 // View all roles
 function viewAllRole() {
     console.log("View all role");
     connection.end();
+};
 
 // View employees by manager
 function viewEmployeeByManager() {
     console.log("View Employee by manager");
     connection.end();
+};
 
 // View total utilized budget of a department
 function viewTotalBudgetByDept() {
     console.log("View total utilized budget of a department");
     connection.end();
+};
