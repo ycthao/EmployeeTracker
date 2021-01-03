@@ -160,7 +160,7 @@ function updateEmployeeManager() {
 
 // View all employees
 function viewAllEmployees() {
-    console.log("View all employees");
+    console.log("Viewing all employees");
 
     connection.query("SELECT * FROM employee_tbl", function(err, res) {
         if (err) throw err;
@@ -192,7 +192,11 @@ function viewAllDepartments() {
 
 // View all roles
 function viewAllRole() {
-    console.log("View all role");
+    console.log("Viewing all role");
+    connection.query("SELECT * FROM role_tbl", function(err, res) {
+        if (err) throw err;
+        console.table(res);
+    });
     connection.end();
 };
 
