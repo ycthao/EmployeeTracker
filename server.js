@@ -111,6 +111,8 @@ function start() {
 // Add employee function
 function addEmployee() {
     console.log("Adding Employee");
+
+
     connection.end();
 };
 
@@ -159,6 +161,22 @@ function updateEmployeeManager() {
 // View all employees
 function viewAllEmployees() {
     console.log("View all employees");
+
+    connection.query("SELECT * FROM employee_tbl", function(err, res) {
+        if (err) throw err;
+        console.table(res);
+        // for (var i = 0; i < res.length; i++) {
+        //     let values = [
+        //         [res[i].first_name, res[i].last_name],                
+        //         //['First name', res[i].first_name],
+        //         //['Last name', res[i].last_name],
+        //     ]
+        //     //console.table(['First name', 'Last name'], values);
+        //     //console.table(['First name', 'Last name'], [[res[i].first_name, res[i].last_name]]);
+
+        // };
+    });
+
     connection.end();
 };
 
