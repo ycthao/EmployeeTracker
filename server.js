@@ -182,7 +182,11 @@ function viewAllEmployees() {
 
 // View all departments
 function viewAllDepartments() {
-    console.log("View all departments");
+    console.log("Viewing all departments");
+    connection.query("SELECT * FROM department_tbl", function(err, res) {
+        if (err) throw err;
+        console.table(res);
+    });
     connection.end();
 };
 
