@@ -152,9 +152,18 @@ function updateEmployeeManager() {
 
 // View all employees
 function viewAllEmployees() {
-    connection.query("SELECT * FROM employee_tbl", function(err, res) {
+
+    let query = "SELECT employee_tbl.first_name, employee_tbl.last_name, role_tbl.title, role_tbl.salary, department_tbl.department_name, manager_id ";
+    query += "FROM employee_tbl "
+    query += "JOIN role_tbl ON employee_tbl.role_id=role_tbl.role_id ";
+    query += "JOIN department_tbl ON role_tbl.department_id=department_tbl.department_id;";
+    
+    connection.query(query, function(err, res)
+    //connection.query("SELECT * FROM employee_tbl", function(err, res) 
+    {
         console.log("Viewing all employees");
         if (err) throw err;
+
         console.table(res);
         start();
     });
