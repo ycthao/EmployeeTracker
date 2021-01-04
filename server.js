@@ -125,9 +125,10 @@ function addDepartment() {
 // Add role function
 function addRole() {
 
+
     console.log("Adding role");
     inquirer
-        .prompt(
+        .prompt([
             {
                 name: "title",
                 type: "input",
@@ -137,13 +138,15 @@ function addRole() {
                 name: "salary",
                 type: "input",
                 message: "Salary of the role?"
-            })
+            },
+
+        ])
         .then(function (answer) {
-            connection.query("INSERT INTO role_tbl SET ? WHERE ?",
+            connection.query("INSERT INTO role_tbl SET ?",
                 {
                     title: answer.title,
                     salary: answer.salary,
-                    // department_id: answer.department
+
                 },
 
                 function (err, res) {
@@ -151,6 +154,7 @@ function addRole() {
                     start();
                 });
         });
+
 };
 
 
