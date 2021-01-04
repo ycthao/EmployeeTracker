@@ -35,7 +35,7 @@ function start() {
             choices: [
                 //"Add employee",
                 "Add department",
-                //"Add role",
+                "Add role",
                 //"Delete employee",
                 //"Delete department",
                 //"Delete role",
@@ -111,24 +111,48 @@ function addDepartment() {
         .prompt({
             name: "department",
             type: "input",
-            message: "Name of department to add?",
-
+            message: "Name of department to add?"
         })
         .then(function (answer) {
-            connection.query("INSERT INTO department_tbl SET ?" , 
-                { department_name: answer.department }, function(err, res){
-            console.log(answer.department + " had been added");
-            start();
-            });
+            connection.query("INSERT INTO department_tbl SET ?",
+                { department_name: answer.department }, function (err, res) {
+                    console.log(answer.department + " had been added");
+                    start();
+                });
         });
-
 };
 
 // Add role function
 function addRole() {
+
     console.log("Adding role");
-    start();
+    inquirer
+        .prompt(
+            {
+                name: "title",
+                type: "input",
+                message: "Name of role title to add?"
+            },
+            {
+                name: "salary",
+                type: "input",
+                message: "Salary of the role?"
+            })
+        .then(function (answer) {
+            connection.query("INSERT INTO role_tbl SET ? WHERE ?",
+                {
+                    title: answer.title,
+                    salary: answer.salary,
+                    // department_id: answer.department
+                },
+
+                function (err, res) {
+                    console.log(answer.title + " had been added");
+                    start();
+                });
+        });
 };
+
 
 // Delete employee function
 function deleteEmployee() {
@@ -167,8 +191,8 @@ function viewAllEmployees() {
     query += "FROM employee_tbl "
     query += "JOIN role_tbl ON employee_tbl.role_id=role_tbl.role_id ";
     query += "JOIN department_tbl ON role_tbl.department_id=department_tbl.department_id;";
-    
-    connection.query(query, function(err, res)
+
+    connection.query(query, function (err, res)
     //connection.query("SELECT * FROM employee_tbl", function(err, res) 
     {
         console.log("Viewing all employees");
@@ -181,7 +205,7 @@ function viewAllEmployees() {
 
 // View all departments
 function viewAllDepartments() {
-    connection.query("SELECT * FROM department_tbl", function(err, res) {
+    connection.query("SELECT * FROM department_tbl", function (err, res) {
         console.log("Viewing all departments");
         if (err) throw err;
         console.table(res);
@@ -191,7 +215,7 @@ function viewAllDepartments() {
 
 // View all roles
 function viewAllRole() {
-    connection.query("SELECT * FROM role_tbl", function(err, res) {
+    connection.query("SELECT * FROM role_tbl", function (err, res) {
         if (err) throw err;
         console.log("Viewing all role");
         console.table(res);
