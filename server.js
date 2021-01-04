@@ -50,14 +50,6 @@ function start() {
             ]
         })
         .then(function (answer) {
-            // if (answer.startUp === "Add employee") {
-            //     addEmployee();
-            //     connection.end();
-            // } else {
-            //     console.log("not this one");
-            //     connection.end();
-            // }
-
             switch (answer.startUp) {
                 case "Add employee":
                     addEmployee();
@@ -113,101 +105,89 @@ function addEmployee() {
     console.log("Adding Employee");
 
 
-    connection.end();
+    start();
 };
 
 // Add department function
 function addDepartment() {
     console.log("Adding department");
-    connection.end();
+    start();
 };
 
 // Add role function
 function addRole() {
     console.log("Adding role");
-    connection.end();
+    start();
 };
 
 // Delete employee function
 function deleteEmployee() {
     console.log("Deleting employee");
-    connection.end();
+    start();
 };
 
 // Delete department function
 function deleteDepartment() {
     console.log("Deleting department");
-    connection.end();
+    start();
 };
 
 // Delete role
 function deleteRole() {
     console.log("Deleting role");
-    connection.end();
+    start();
 };
 
 // Update employee role
 function updateEmployee() {
     console.log("Updating employee");
-    connection.end();
+    start();
 };
 
 // Update employee's manager
 function updateEmployeeManager() {
     console.log("Updating employee's manager");
-    connection.end();
+    start();
 };
 
 // View all employees
 function viewAllEmployees() {
-    console.log("Viewing all employees");
-
     connection.query("SELECT * FROM employee_tbl", function(err, res) {
+        console.log("Viewing all employees");
         if (err) throw err;
         console.table(res);
-        // for (var i = 0; i < res.length; i++) {
-        //     let values = [
-        //         [res[i].first_name, res[i].last_name],                
-        //         //['First name', res[i].first_name],
-        //         //['Last name', res[i].last_name],
-        //     ]
-        //     //console.table(['First name', 'Last name'], values);
-        //     //console.table(['First name', 'Last name'], [[res[i].first_name, res[i].last_name]]);
-
-        // };
+        start();
     });
-
-    connection.end();
 };
 
 // View all departments
 function viewAllDepartments() {
-    console.log("Viewing all departments");
     connection.query("SELECT * FROM department_tbl", function(err, res) {
+        console.log("Viewing all departments");
         if (err) throw err;
         console.table(res);
+        start();
     });
-    connection.end();
 };
 
 // View all roles
 function viewAllRole() {
-    console.log("Viewing all role");
     connection.query("SELECT * FROM role_tbl", function(err, res) {
         if (err) throw err;
+        console.log("Viewing all role");
         console.table(res);
+        start();
     });
-    connection.end();
 };
 
 // View employees by manager
 function viewEmployeeByManager() {
     console.log("View Employee by manager");
-    connection.end();
+    start();
 };
 
 // View total utilized budget of a department
 function viewTotalBudgetByDept() {
     console.log("View total utilized budget of a department");
-    connection.end();
+    start();
 };
