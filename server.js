@@ -33,19 +33,19 @@ function start() {
             type: "list",
             message: "What would you like to do?",
             choices: [
-                "Add employee",
+                //"Add employee",
                 "Add department",
-                "Add role",
-                "Delete employee",
-                "Delete department",
-                "Delete role",
-                "Update employee role",
-                "Update employee's manager",
+                //"Add role",
+                //"Delete employee",
+                //"Delete department",
+                //"Delete role",
+                //"Update employee role",
+                //"Update employee's manager",
                 "View all employees",
                 "View all departments",
                 "View all roles",
-                "View employees by manager",
-                "View total utilized budget of a department",
+                //"View employees by manager",
+                //"View total utilized budget of a department",
                 "Exit"
             ]
         })
@@ -95,23 +95,33 @@ function start() {
                     connection.end();
             }
 
-
-
         });
 };
 
 // Add employee function
 function addEmployee() {
     console.log("Adding Employee");
-
-
     start();
 };
 
 // Add department function
 function addDepartment() {
     console.log("Adding department");
-    start();
+    inquirer
+        .prompt({
+            name: "department",
+            type: "input",
+            message: "Name of department to add?",
+
+        })
+        .then(function (answer) {
+            connection.query("INSERT INTO department_tbl SET ?" , 
+                { department_name: answer.department }, function(err, res){
+            console.log(answer.department + " had been added");
+            start();
+            });
+        });
+
 };
 
 // Add role function
