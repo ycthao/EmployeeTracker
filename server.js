@@ -120,121 +120,177 @@ function addDepartment() {
                     start();
                 });
         });
+
+
 };
 
-// Add role function
-function addRole() {
+    // Add role function
+    function addRole() {
+        console.log("Adding role");
 
+        let choiceArray = [];
 
-    console.log("Adding role");
-    inquirer
-        .prompt([
-            {
-                name: "title",
-                type: "input",
-                message: "Name of role title to add?"
-            },
-            {
-                name: "salary",
-                type: "input",
-                message: "Salary of the role?"
-            },
+        connection.query("SELECT * FROM department_tbl", function (err, answer) {
+            if (err) throw err;
+            // once you have the items, prompt the user for which they'd like to bid on
+            inquirer
+                .prompt([
+                    {
+                        name: "title",
+                        type: "input",
+                        message: "Name of role title to add?"
+                    },
+                    {
+                        name: "salary",
+                        type: "input",
+                        message: "Salary of the role?"
+                    },
+                    {
+                        name: "department",
+                        type: "list",
+                        choices: function () {
+                            
+                            // let choiceArray = [];
+                            for (let i = 0; i < answer.length; i++) {
+                                choiceArray.push(answer[i].department_name);
+                            }
+                            return choiceArray;
+                        },
+                        message: "What department will the role be in?"
+                        
+                    }
+                ])
+                .then(function (answer) {
 
-        ])
-        .then(function (answer) {
-            connection.query("INSERT INTO role_tbl SET ?",
-                {
-                    title: answer.title,
-                    salary: answer.salary,
+                    let arrIndex;
+                    
+                    for (let i = 0; i < choiceArray.length; i++) {
+                        if (answer.department === choiceArray[i]) {
+                            arrIndex = i;
+                            //console.log(i);
+                        } 
+                    }
 
-                },
+                    // console.log(arrIndex);
+                    // console.log(typeof choiceArray[2]);
+                    // console.log(typeof answer.department);
 
-                function (err, res) {
-                    console.log(answer.title + " had been added");
-                    start();
+                    connection.query("INSERT INTO role_tbl SET ?",
+                        {
+                            title: answer.title,
+                            salary: answer.salary,
+                            department_id: arrIndex
+                        },
+    
+                        function (err, res) {
+                            console.log(answer.title + " had been added");
+                            start();
+                        });
                 });
         });
 
-};
 
 
-// Delete employee function
-function deleteEmployee() {
-    console.log("Deleting employee");
-    start();
-};
+ 
+        // inquirer
+        //     .prompt([
+                
 
-// Delete department function
-function deleteDepartment() {
-    console.log("Deleting department");
-    start();
-};
+        //     ])
+        //     .then(function (answer) {
+        //         connection.query("INSERT INTO role_tbl SET ?",
+        //             {
+        //                 title: answer.title,
+        //                 salary: answer.salary,
 
-// Delete role
-function deleteRole() {
-    console.log("Deleting role");
-    start();
-};
+        //             },
 
-// Update employee role
-function updateEmployee() {
-    console.log("Updating employee");
-    start();
-};
+        //             function (err, res) {
+        //                 console.log(answer.title + " had been added");
+        //                 start();
+        //             });
+        //     });
 
-// Update employee's manager
-function updateEmployeeManager() {
-    console.log("Updating employee's manager");
-    start();
-};
+    };
 
-// View all employees
-function viewAllEmployees() {
 
-    let query = "SELECT employee_tbl.first_name, employee_tbl.last_name, role_tbl.title, role_tbl.salary, department_tbl.department_name, manager_id ";
-    query += "FROM employee_tbl "
-    query += "JOIN role_tbl ON employee_tbl.role_id=role_tbl.role_id ";
-    query += "JOIN department_tbl ON role_tbl.department_id=department_tbl.department_id;";
-
-    connection.query(query, function (err, res)
-    //connection.query("SELECT * FROM employee_tbl", function(err, res) 
-    {
-        console.log("Viewing all employees");
-        if (err) throw err;
-
-        console.table(res);
+    // Delete employee function
+    function deleteEmployee() {
+        console.log("Deleting employee");
         start();
-    });
-};
+    };
 
-// View all departments
-function viewAllDepartments() {
-    connection.query("SELECT * FROM department_tbl", function (err, res) {
-        console.log("Viewing all departments");
-        if (err) throw err;
-        console.table(res);
+    // Delete department function
+    function deleteDepartment() {
+        console.log("Deleting department");
         start();
-    });
-};
+    };
 
-// View all roles
-function viewAllRole() {
-    connection.query("SELECT * FROM role_tbl", function (err, res) {
-        if (err) throw err;
-        console.log("Viewing all role");
-        console.table(res);
+    // Delete role
+    function deleteRole() {
+        console.log("Deleting role");
         start();
-    });
-};
+    };
 
-// View employees by manager
-function viewEmployeeByManager() {
-    console.log("View Employee by manager");
-    start();
-};
+    // Update employee role
+    function updateEmployee() {
+        console.log("Updating employee");
+        start();
+    };
 
-// View total utilized budget of a department
-function viewTotalBudgetByDept() {
-    console.log("View total utilized budget of a department");
-    start();
-};
+    // Update employee's manager
+    function updateEmployeeManager() {
+        console.log("Updating employee's manager");
+        start();
+    };
+
+    // View all employees
+    function viewAllEmployees() {
+
+        let query = "SELECT employee_tbl.first_name, employee_tbl.last_name, role_tbl.title, role_tbl.salary, department_tbl.department_name, manager_id ";
+        query += "FROM employee_tbl "
+        query += "JOIN role_tbl ON employee_tbl.role_id=role_tbl.role_id ";
+        query += "JOIN department_tbl ON role_tbl.department_id=department_tbl.department_id;";
+
+        connection.query(query, function (err, res)
+        //connection.query("SELECT * FROM employee_tbl", function(err, res) 
+        {
+            console.log("Viewing all employees");
+            if (err) throw err;
+
+            console.table(res);
+            start();
+        });
+    };
+
+    // View all departments
+    function viewAllDepartments() {
+        connection.query("SELECT * FROM department_tbl", function (err, res) {
+            console.log("Viewing all departments");
+            if (err) throw err;
+            console.table(res);
+            start();
+        });
+    };
+
+    // View all roles
+    function viewAllRole() {
+        connection.query("SELECT * FROM role_tbl", function (err, res) {
+            if (err) throw err;
+            console.log("Viewing all role");
+            console.table(res);
+            start();
+        });
+    };
+
+    // View employees by manager
+    function viewEmployeeByManager() {
+        console.log("View Employee by manager");
+        start();
+    };
+
+    // View total utilized budget of a department
+    function viewTotalBudgetByDept() {
+        console.log("View total utilized budget of a department");
+        start();
+    };
