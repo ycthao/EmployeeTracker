@@ -120,8 +120,6 @@ function addDepartment() {
                     start();
                 });
         });
-
-
 };
 
     // Add role function
@@ -132,7 +130,6 @@ function addDepartment() {
 
         connection.query("SELECT * FROM department_tbl", function (err, answer) {
             if (err) throw err;
-            // once you have the items, prompt the user for which they'd like to bid on
             inquirer
                 .prompt([
                     {
@@ -149,31 +146,22 @@ function addDepartment() {
                         name: "department",
                         type: "list",
                         choices: function () {
-                            
-                            // let choiceArray = [];
                             for (let i = 0; i < answer.length; i++) {
                                 choiceArray.push(answer[i].department_name);
                             }
                             return choiceArray;
                         },
                         message: "What department will the role be in?"
-                        
                     }
                 ])
                 .then(function (answer) {
-
                     let arrIndex;
                     
                     for (let i = 0; i < choiceArray.length; i++) {
                         if (answer.department === choiceArray[i]) {
                             arrIndex = i;
-                            //console.log(i);
                         } 
                     }
-
-                    // console.log(arrIndex);
-                    // console.log(typeof choiceArray[2]);
-                    // console.log(typeof answer.department);
 
                     connection.query("INSERT INTO role_tbl SET ?",
                         {
@@ -188,29 +176,6 @@ function addDepartment() {
                         });
                 });
         });
-
-
-
- 
-        // inquirer
-        //     .prompt([
-                
-
-        //     ])
-        //     .then(function (answer) {
-        //         connection.query("INSERT INTO role_tbl SET ?",
-        //             {
-        //                 title: answer.title,
-        //                 salary: answer.salary,
-
-        //             },
-
-        //             function (err, res) {
-        //                 console.log(answer.title + " had been added");
-        //                 start();
-        //             });
-        //     });
-
     };
 
 
