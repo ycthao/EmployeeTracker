@@ -33,7 +33,7 @@ function start() {
             type: "list",
             message: "What would you like to do?",
             choices: [
-                //"Add employee",
+                "Add employee",
                 "Add department",
                 "Add role",
                 //"Delete employee",
@@ -101,7 +101,60 @@ function start() {
 // Add employee function
 function addEmployee() {
     console.log("Adding Employee");
-    start();
+    let roleArray = [];
+
+    // ask for first, last, role and manager
+
+    connection.query("SELECT * FROM role_tbl", function (err, answer) {
+        if (err) throw err;
+        inquirer
+            .prompt([
+                {
+                    name: "first",
+                    type: "input",
+                    message: "What is employee's first name?"
+                },
+                {
+                    name: "last",
+                    type: "input",
+                    message: "What is employee's last name?"
+                },
+                {
+                    name: "role",
+                    type: "list",
+                    choices: function () {
+                        for (let i = 0; i < answer.length; i++) {
+                            roleArray.push(answer[i].title);
+                        }
+                        return roleArray;
+                    },
+                    message: "What is employee's role?"
+                }
+            ])
+            .then(function (answer) {
+                let roleIndex;
+                
+                for (let i = 0; i < roleArray.length; i++) {
+                    if (answer.role === roleArray[i]) {
+                        roleIndex = i;
+                    } 
+                }
+
+                connection.query("INSERT INTO employee_tbl SET ?",
+                    {
+                        first_name: answer.first,
+                        last_name: answer.last,
+                        role_id: roleIndex
+                    },
+
+                    function (err, res) {
+                        console.log(answer.first + " " + answer.last + " had been added");
+                        start();
+                    });
+            });
+    });
+
+
 };
 
 // Add department function
