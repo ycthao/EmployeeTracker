@@ -39,7 +39,7 @@ function start() {
                 //"Delete employee",
                 //"Delete department",
                 //"Delete role",
-                //"Update employee role",
+                "Update employee role",
                 //"Update employee's manager",
                 "View all employees",
                 "View all departments",
@@ -133,11 +133,11 @@ function addEmployee() {
             ])
             .then(function (answer) {
                 let roleIndex;
-                
+
                 for (let i = 0; i < roleArray.length; i++) {
                     if (answer.role === roleArray[i]) {
                         roleIndex = i;
-                    } 
+                    }
                 }
 
                 connection.query("INSERT INTO employee_tbl SET ?",
@@ -175,140 +175,234 @@ function addDepartment() {
         });
 };
 
-    // Add role function
-    function addRole() {
-        console.log("Adding role");
+// Add role function
+function addRole() {
+    console.log("Adding role");
 
-        let choiceArray = [];
+    let choiceArray = [];
 
-        connection.query("SELECT * FROM department_tbl", function (err, answer) {
-            if (err) throw err;
-            inquirer
-                .prompt([
-                    {
-                        name: "title",
-                        type: "input",
-                        message: "Name of role title to add?"
+    connection.query("SELECT * FROM department_tbl", function (err, answer) {
+        if (err) throw err;
+        inquirer
+            .prompt([
+                {
+                    name: "title",
+                    type: "input",
+                    message: "Name of role title to add?"
+                },
+                {
+                    name: "salary",
+                    type: "input",
+                    message: "Salary of the role?"
+                },
+                {
+                    name: "department",
+                    type: "list",
+                    choices: function () {
+                        for (let i = 0; i < answer.length; i++) {
+                            choiceArray.push(answer[i].department_name);
+                        }
+                        return choiceArray;
                     },
+                    message: "What department will the role be in?"
+                }
+            ])
+            .then(function (answer) {
+                let arrIndex;
+
+                for (let i = 0; i < choiceArray.length; i++) {
+                    if (answer.department === choiceArray[i]) {
+                        arrIndex = i;
+                    }
+                }
+
+                connection.query("INSERT INTO role_tbl SET ?",
                     {
-                        name: "salary",
-                        type: "input",
-                        message: "Salary of the role?"
+                        title: answer.title,
+                        salary: answer.salary,
+                        department_id: arrIndex
                     },
-                    {
-                        name: "department",
-                        type: "list",
-                        choices: function () {
-                            for (let i = 0; i < answer.length; i++) {
-                                choiceArray.push(answer[i].department_name);
+
+                    function (err, res) {
+                        console.log(answer.title + " had been added");
+                        start();
+                    });
+            });
+    });
+};
+
+
+// Delete employee function
+function deleteEmployee() {
+    console.log("Deleting employee");
+    start();
+};
+
+// Delete department function
+function deleteDepartment() {
+    console.log("Deleting department");
+    start();
+};
+
+// Delete role
+function deleteRole() {
+    console.log("Deleting role");
+    start();
+};
+
+// Update employee role
+function updateEmployee() {
+    console.log("Updating employee");
+    let employeeArray = [];
+    let roleArray = [];
+    let employeeIndex;
+    let roleIndex;
+    let roleName;
+    let employeeName;
+
+    connection.query("SELECT * FROM employee_tbl", function (err, answer) {
+        if (err) throw err;
+
+        inquirer
+            .prompt([
+                {
+                    name: "name",
+                    type: "list",
+                    choices: function () {
+                        for (let i = 0; i < answer.length; i++) {
+                            employeeArray.push(answer[i].first_name + " " + answer[i].last_name);
+                        }
+                        return employeeArray;
+                    },
+                    message: "Which employee's role would you like to change?"
+                }
+            ])
+            .then(function (answer) {
+
+                for (let i = 0; i < employeeArray.length; i++) {
+                    if (answer.name === employeeArray[i]) {
+                        employeeIndex = i;
+                        employeeName = answer.name;
+                    }
+                }
+
+                console.log(employeeIndex)
+
+                connection.query("SELECT * FROM role_tbl", function (err, answer) {
+                    if (err) throw err;
+                    inquirer
+                        .prompt([
+                            {
+                                name: "role",
+                                type: "list",
+                                choices: function () {
+                                    for (let i = 0; i < answer.length; i++) {
+                                        roleArray.push(answer[i].title);
+                                    }
+                                    return roleArray;
+                                },
+                                message: "What is employee's role?"
                             }
-                            return choiceArray;
-                        },
-                        message: "What department will the role be in?"
-                    }
-                ])
-                .then(function (answer) {
-                    let arrIndex;
-                    
-                    for (let i = 0; i < choiceArray.length; i++) {
-                        if (answer.department === choiceArray[i]) {
-                            arrIndex = i;
-                        } 
-                    }
+                        ])
+                        .then(function (answer) {
 
-                    connection.query("INSERT INTO role_tbl SET ?",
-                        {
-                            title: answer.title,
-                            salary: answer.salary,
-                            department_id: arrIndex
-                        },
-    
-                        function (err, res) {
-                            console.log(answer.title + " had been added");
-                            start();
+                            for (let i = 0; i < roleArray.length; i++) {
+                                if (answer.role === roleArray[i]) {
+                                    roleIndex = i;
+                                    roleName = answer.role;
+                                }
+                            }
+                            
+                            connection.query("UPDATE employee_tbl SET role_id = ? WHERE id = ?",
+                            [
+                                roleIndex, employeeIndex
+                            ],
+        
+                            function (err, res) {
+                                //console.log(answer.first + " " + answer.last + " had been added");
+                                console.log(employeeName + "'s role had been updated to " + roleName);
+                                start();
+                            });
+
+
+
                         });
+
                 });
-        });
-    };
 
 
-    // Delete employee function
-    function deleteEmployee() {
-        console.log("Deleting employee");
+
+
+                //console.log('\n');
+
+                //start();
+
+            });
+
+    });
+
+
+};
+
+// Update employee's manager
+function updateEmployeeManager() {
+    console.log("Updating employee's manager");
+    start();
+};
+
+// View all employees
+function viewAllEmployees() {
+
+    let query = "SELECT employee_tbl.first_name, employee_tbl.last_name, role_tbl.title, role_tbl.salary, department_tbl.department_name, CONCAT(manager.first_name, ' ', manager.last_name) AS manager ";
+    query += "FROM employee_tbl "
+    query += "JOIN role_tbl ON employee_tbl.role_id=role_tbl.role_id ";
+    query += "JOIN department_tbl ON role_tbl.department_id=department_tbl.department_id;";
+
+    connection.query(query, function (err, res)
+    //connection.query("SELECT * FROM employee_tbl", function(err, res) 
+    {
+        console.log("Viewing all employees");
+        if (err) throw err;
+
+        console.table(res);
         start();
-    };
+    });
+};
 
-    // Delete department function
-    function deleteDepartment() {
-        console.log("Deleting department");
+// View all departments
+function viewAllDepartments() {
+    connection.query("SELECT * FROM department_tbl", function (err, res) {
+        console.log("Viewing all departments");
+        if (err) throw err;
+        console.table(res);
         start();
-    };
+    });
+};
 
-    // Delete role
-    function deleteRole() {
-        console.log("Deleting role");
+// View all roles
+function viewAllRole() {
+    connection.query("SELECT * FROM role_tbl", function (err, res) {
+        if (err) throw err;
+        console.log("Viewing all role");
+        console.table(res);
         start();
-    };
+    });
+};
 
-    // Update employee role
-    function updateEmployee() {
-        console.log("Updating employee");
-        start();
-    };
+// View employees by manager
+function viewEmployeeByManager() {
+    console.log("View Employee by manager");
+    start();
+};
 
-    // Update employee's manager
-    function updateEmployeeManager() {
-        console.log("Updating employee's manager");
-        start();
-    };
+// View total utilized budget of a department
+function viewTotalBudgetByDept() {
+    console.log("View total utilized budget of a department");
+    start();
+};
 
-    // View all employees
-    function viewAllEmployees() {
 
-        let query = "SELECT employee_tbl.first_name, employee_tbl.last_name, role_tbl.title, role_tbl.salary, department_tbl.department_name, manager_id ";
-        query += "FROM employee_tbl "
-        query += "JOIN role_tbl ON employee_tbl.role_id=role_tbl.role_id ";
-        query += "JOIN department_tbl ON role_tbl.department_id=department_tbl.department_id;";
+function roleChange() {
+    console.log("this works!")
 
-        connection.query(query, function (err, res)
-        //connection.query("SELECT * FROM employee_tbl", function(err, res) 
-        {
-            console.log("Viewing all employees");
-            if (err) throw err;
-
-            console.table(res);
-            start();
-        });
-    };
-
-    // View all departments
-    function viewAllDepartments() {
-        connection.query("SELECT * FROM department_tbl", function (err, res) {
-            console.log("Viewing all departments");
-            if (err) throw err;
-            console.table(res);
-            start();
-        });
-    };
-
-    // View all roles
-    function viewAllRole() {
-        connection.query("SELECT * FROM role_tbl", function (err, res) {
-            if (err) throw err;
-            console.log("Viewing all role");
-            console.table(res);
-            start();
-        });
-    };
-
-    // View employees by manager
-    function viewEmployeeByManager() {
-        console.log("View Employee by manager");
-        start();
-    };
-
-    // View total utilized budget of a department
-    function viewTotalBudgetByDept() {
-        console.log("View total utilized budget of a department");
-        start();
-    };
+}
