@@ -4,7 +4,7 @@
 
 ## Description 
 
-
+A simple employee tracker app that will let a business owner view and manage departments, roles, and employees of their company.
 
 ## Table of Contents 
 
